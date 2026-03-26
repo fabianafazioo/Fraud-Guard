@@ -1,0 +1,22 @@
+{
+  "name": "fraud-guard-ai",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "docx": "^9.0.0",
+    "framer-motion": "^11.3.19",
+    "lucide-react": "^0.462.0",
+    "next": "16.2.1",
+    "pdf-parse": "^1.1.1",
+    "react": "19.2.0",
+    "react-dom": "19.2.0",
+    "recharts": "^2.13.3",
+    "xlsx": "^0.18.5"
+  }
+}
