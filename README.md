@@ -1,8 +1,10 @@
-# FraudGuard AI - Updated Version
+# FraudGuard AI
 
 This version improves the design and the fraud detection logic.
 
-## What changed
+Deployed version : https://fraud-guard-ruby.vercel.app
+
+## Features:
 
 - cleaner homepage with a more elegant tech look
 - larger and better-looking **Run Analysis** button
