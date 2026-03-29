@@ -1,76 +1,47 @@
-# FraudGuard AI
+# FraudGuard AI - Updated Version
 
-A polished fraud detection website built with **Next.js** for **VS Code + GitHub + Vercel**.
+This version improves the design and the fraud detection logic.
 
-## What it does
+## What changed
 
-- Drag and drop **Excel, CSV, or PDF** files
-- Analyze uploaded files for suspicious patterns
-- Show an estimated **fraud percentage**
-- Summarize suspicious activity by area
-- Display charts and top flagged records
-- Export results as **DOCX** or **PDF-ready HTML**
+- cleaner homepage with a more elegant tech look
+- larger and better-looking **Run Analysis** button
+- removed the extra logic card from the homepage
+- uses the **actual file name** instead of generic names like Sheet 1 when possible
+- improved results section so the user can see **where the suspicious activity really is**
+- better mobile responsiveness
+- footer added: **Created by Fabiana Fazio**
+- **real Python Isolation Forest** with scikit-learn, so the detection matches your notebook much more closely
+- export button now says **Save as a PDF**
 
-## Important note about PDF uploads
+## Install
 
-Excel and CSV uploads are the most reliable because they are structured.
-
-PDF support is included, but it works best for **text-based PDFs**. If the PDF is scanned or image-only, the extracted structure may be limited. For production-level PDF parsing, you would usually add OCR and a custom table extraction pipeline.
-
-## Tech stack
-
-- Next.js App Router
-- React
-- Recharts
-- Framer Motion
-- xlsx
-- pdf-parse
-- docx
-
-## Run locally
+### 1. Install Node packages
 
 ```bash
 npm install
+```
+
+### 2. Create and activate a Python environment
+
+```bash
+python3 -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
+```
+
+### 3. Run the project
+
+```bash
 npm run dev
 ```
 
-Open `http://localhost:3000`
-
-## Deploy to Vercel
-
-1. Push this folder to GitHub.
-2. Import the repo into Vercel.
-3. Click deploy.
-
-No environment variables are required for this version.
-
-## Suggested GitHub upload steps
+Open your local browser at:
 
 ```bash
-git init
-git add .
-git commit -m "Initial fraud detection website"
-git branch -M main
-git remote add origin YOUR_GITHUB_REPO_URL
-git push -u origin main
+http://localhost:3000
 ```
 
-## Project structure
+## Important
 
-```text
-app/
-  api/
-    analyze/route.js
-    export/route.js
-  globals.css
-  layout.js
-  page.js
-components/
-  DashboardCharts.js
-  FindingsTable.js
-  MetricCards.js
-  SummarySection.js
-  UploadPanel.js
-lib/
-  fraud-analysis.js
-```
+This app now depends on Python because the backend calls `python/analyze.py` to run the actual fraud model.

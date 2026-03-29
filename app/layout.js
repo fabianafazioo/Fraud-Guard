@@ -2,7 +2,7 @@ import './globals.css';
 
 export const metadata = {
   title: 'FraudGuard AI',
-  description: 'Elegant fraud detection dashboard powered by Isolation Forest analysis.'
+  description: 'Elegant fraud detection dashboard powered by Isolation Forest.'
 };
 
 export default function RootLayout({ children }) {

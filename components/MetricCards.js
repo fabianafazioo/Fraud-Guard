@@ -1,40 +1,20 @@
 export default function MetricCards({ report }) {
-  const metrics = [
-    {
-      label: 'Estimated Fraud %',
-      value: `${report.fraudPercent}%`,
-      note: report.riskLevel,
-      tone: report.fraudPercent >= 20 ? 'red' : 'green'
-    },
-    {
-      label: 'Suspicious Records',
-      value: report.suspiciousRows,
-      note: `${report.totalRows} total rows reviewed`,
-      tone: 'yellow'
-    },
-    {
-      label: 'Files / Sheets Analyzed',
-      value: report.sheetsAnalyzed,
-      note: 'Structured anomaly screening',
-      tone: 'blue'
-    },
-    {
-      label: 'Clear Records %',
-      value: `${report.safePercent}%`,
-      note: 'Not flagged by the rule engine',
-      tone: 'green'
-    }
+  const cards = [
+    { label: 'Fraud Probability', value: `${report.fraudPercent}%`, note: report.riskLevel, tone: report.riskTone },
+    { label: 'Flagged Records', value: report.flaggedRecords, note: `${report.totalRows} total rows reviewed`, tone: 'warn' },
+    { label: 'Files Reviewed', value: report.filesAnalyzed, note: 'Actual file names preserved', tone: 'cool' },
+    { label: 'Most Affected Area', value: report.primaryArea || 'General review', note: 'Highest concentration of risk', tone: 'soft' }
   ];
 
   return (
-    <div className="metrics-grid">
-      {metrics.map((metric) => (
-        <div className="card metric-card" key={metric.label}>
-          <div className="metric-label">{metric.label}</div>
-          <div className={`metric-value ${metric.tone}`}>{metric.value}</div>
-          <div className="metric-trend">{metric.note}</div>
+    <section className="metric-grid">
+      {cards.map((card) => (
+        <div className={`metric-card glass ${card.tone}`} key={card.label}>
+          <p>{card.label}</p>
+          <h3>{card.value}</h3>
+          <span>{card.note}</span>
         </div>
       ))}
-    </div>
+    </section>
   );
 }

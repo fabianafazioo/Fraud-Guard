@@ -1,25 +1,24 @@
 'use client';
 
-import { Bar, BarChart, Cell, Pie, PieChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
+import { ResponsiveContainer, PieChart, Pie, Cell, Tooltip, BarChart, Bar, XAxis, YAxis, CartesianGrid } from 'recharts';
 
-const COLORS = ['#ff5d73', '#48d597', '#6ea8fe', '#ffd166', '#9b7cff', '#39c3ff'];
+const COLORS = ['#20c997', '#ff6b81', '#7c5cff', '#2f80ed', '#f7b731', '#5ce1e6'];
 
 export default function DashboardCharts({ report }) {
   return (
-    <div className="dashboard-grid">
-      <div className="card chart-card">
-        <div className="section-title">
+    <section className="charts-grid">
+      <div className="chart-card glass">
+        <div className="chart-head">
           <div>
-            <h3>Fraud Exposure Score</h3>
-            <p className="helper">Suspicious versus clear records across all uploads</p>
+            <p className="eyebrow">Overall risk</p>
+            <h3>Flagged vs clear rows</h3>
           </div>
-          <span className="risk-badge">{report.riskLevel}</span>
         </div>
-        <div style={{ width: '100%', height: 280 }}>
-          <ResponsiveContainer>
+        <div className="chart-frame">
+          <ResponsiveContainer width="100%" height={280}>
             <PieChart>
-              <Pie data={report.charts.fraudGauge} dataKey="value" nameKey="name" innerRadius={78} outerRadius={110} paddingAngle={4}>
-                {report.charts.fraudGauge.map((entry, index) => (
+              <Pie data={report.charts.gauge} dataKey="value" nameKey="name" innerRadius={76} outerRadius={108} paddingAngle={4}>
+                {report.charts.gauge.map((entry, index) => (
                   <Cell key={entry.name} fill={COLORS[index % COLORS.length]} />
                 ))}
               </Pie>
@@ -29,58 +28,45 @@ export default function DashboardCharts({ report }) {
         </div>
       </div>
 
-      <div className="card chart-card">
-        <div className="section-title">
+      <div className="chart-card glass">
+        <div className="chart-head">
           <div>
-            <h3>Flags by Uploaded File</h3>
-            <p className="helper">How many records were flagged inside each upload</p>
+            <p className="eyebrow">By file</p>
+            <h3>Flagged records</h3>
           </div>
         </div>
-        <div style={{ width: '100%', height: 280 }}>
-          <ResponsiveContainer>
-            <BarChart data={report.charts.bySheet}>
-              <XAxis dataKey="name" stroke="#9da7c5" />
-              <YAxis stroke="#9da7c5" />
+        <div className="chart-frame">
+          <ResponsiveContainer width="100%" height={280}>
+            <BarChart data={report.charts.byFile}>
+              <CartesianGrid vertical={false} stroke="rgba(255,255,255,0.07)" />
+              <XAxis dataKey="name" stroke="#8f9bb8" tickLine={false} axisLine={false} />
+              <YAxis stroke="#8f9bb8" tickLine={false} axisLine={false} />
               <Tooltip />
-              <Bar dataKey="suspicious" radius={[10, 10, 0, 0]} fill="#48d597" />
+              <Bar dataKey="flagged" radius={[8, 8, 0, 0]} fill="#20c997" />
             </BarChart>
           </ResponsiveContainer>
         </div>
       </div>
 
-      <div className="card chart-card">
-        <div className="section-title">
+      <div className="chart-card glass full-span">
+        <div className="chart-head">
           <div>
-            <h3>Why Records Were Flagged</h3>
-            <p className="helper">Main suspicious patterns found during analysis</p>
+            <p className="eyebrow">Why rows were flagged</p>
+            <h3>Suspicious pattern counts</h3>
           </div>
         </div>
-        <div style={{ width: '100%', height: 280 }}>
-          <ResponsiveContainer>
-            <BarChart data={report.charts.reasons} layout="vertical" margin={{ left: 20 }}>
-              <XAxis type="number" stroke="#9da7c5" />
-              <YAxis type="category" dataKey="name" width={110} stroke="#9da7c5" />
+        <div className="chart-frame">
+          <ResponsiveContainer width="100%" height={300}>
+            <BarChart data={report.charts.reasons}>
+              <CartesianGrid vertical={false} stroke="rgba(255,255,255,0.07)" />
+              <XAxis dataKey="name" stroke="#8f9bb8" tickLine={false} axisLine={false} />
+              <YAxis stroke="#8f9bb8" tickLine={false} axisLine={false} />
               <Tooltip />
-              <Bar dataKey="value" radius={[0, 10, 10, 0]} fill="#6ea8fe" />
+              <Bar dataKey="value" radius={[8, 8, 0, 0]} fill="#7c5cff" />
             </BarChart>
           </ResponsiveContainer>
         </div>
       </div>
-
-      <div className="card chart-card">
-        <div className="section-title">
-          <div>
-            <h3>Analysis Summary</h3>
-            <p className="helper">A quick executive view of the uploaded evidence</p>
-          </div>
-        </div>
-        <div className="breakdown">
-          <div className="breakdown-item"><span>Risk level</span><strong>{report.riskLevel}</strong></div>
-          <div className="breakdown-item"><span>Fraud probability</span><strong>{report.fraudPercent}%</strong></div>
-          <div className="breakdown-item"><span>Suspicious rows</span><strong>{report.suspiciousRows}</strong></div>
-          <div className="breakdown-item"><span>Uploads analyzed</span><strong>{report.sheetsAnalyzed}</strong></div>
-        </div>
-      </div>
-    </div>
+    </section>
   );
 }

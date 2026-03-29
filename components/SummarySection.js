@@ -1,53 +1,42 @@
 export default function SummarySection({ report }) {
   return (
-    <div className="summary-grid">
-      <div className="card summary-card">
-        <div className="section-title">
-          <div>
-            <h3>Suspicious Activity Summary</h3>
-            <p className="helper">Where the model sees the strongest red flags</p>
-          </div>
-        </div>
-        <div className="summary-list">
-          <div className="summary-item">
-            <h4>Executive Summary</h4>
-            <p>{report.narrativeSummary}</p>
-          </div>
-          {report.suspiciousAreas.length ? (
-            report.suspiciousAreas.map((area) => (
-              <div className="summary-item" key={`${area.area}-${area.note}`}>
-                <h4>{area.area}</h4>
-                <p>{area.note}</p>
-              </div>
-            ))
-          ) : (
-            <div className="summary-item">
-              <h4>No strong area pattern found</h4>
-              <p>The uploaded files did not clearly match a specific financial area, but unusual rows were still checked for outliers and fraud indicators.</p>
-            </div>
-          )}
-        </div>
-      </div>
+    <section className="summary-layout">
+      <div className="summary-card glass">
+        <p className="eyebrow">Executive summary</p>
+        <h3>What the system found</h3>
+        <p className="summary-text">{report.narrativeSummary}</p>
 
-      <div className="card summary-card">
-        <div className="section-title">
-          <div>
-            <h3>Result Breakdown</h3>
-            <p className="helper">Simple dashboard metrics for decision-makers</p>
-          </div>
-        </div>
-        <div className="breakdown">
-          {report.sheetSummaries.map((sheet) => (
-            <div className="breakdown-item" key={sheet.sheetName}>
-              <span>{sheet.sheetName}</span>
-              <strong>{sheet.suspiciousCount} flagged</strong>
+        <div className="area-list">
+          {report.suspiciousAreas.map((item) => (
+            <div className="area-item" key={`${item.area}-${item.fileName}`}>
+              <div>
+                <strong>{item.area}</strong>
+                <span>{item.fileName}</span>
+              </div>
+              <p>{item.note}</p>
             </div>
           ))}
         </div>
-        <p className="footer-note">
-          This website gives an anomaly score, not a legal finding of fraud. It is a screening tool designed to help auditors and analysts review high-risk records faster.
-        </p>
       </div>
-    </div>
+
+      <div className="summary-card glass">
+        <p className="eyebrow">File breakdown</p>
+        <h3>Where the strongest fraud signals appeared</h3>
+        <div className="breakdown-list">
+          {report.fileSummaries.map((file) => (
+            <div className="breakdown-row" key={file.fileName}>
+              <div>
+                <strong>{file.fileName}</strong>
+                <span>{file.area}</span>
+              </div>
+              <div className="breakdown-right">
+                <strong>{file.flaggedCount} flagged</strong>
+                <span>{file.flaggedPercent}% of rows</span>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
   );
 }

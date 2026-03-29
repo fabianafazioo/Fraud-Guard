@@ -6,4 +6,6 @@ build
 .DS_Store
 .env
 .env.local
-*.log
+venv
+__pycache__
+*.pyc
